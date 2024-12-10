@@ -22,7 +22,7 @@ export class AuthGuardServiceService implements CanActivate {
             console.log('Guard Reveives false value ==> Hence routing module will reject');
             //alert("Guard Reveives false value");
             this.route.navigate(['error']);
-            return true;
+            return false;
           }
         }
       )

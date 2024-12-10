@@ -1,5 +1,5 @@
 # angular-routing-guard
-angular-routing-guardhelpful for jwt, security functionality with backend
+angular-routing-guard helpful for jwt, security functionality with backend
 
 ### Explanation and Code Walkthrough
 

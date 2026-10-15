@@ -1,4 +1,5 @@
-name: Deploy Angular Routing Guard
+
+name: Deploy Angular Routing Guard to GitHub Pages
 
 on:
   push:
@@ -12,8 +13,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: github-pages
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -35,8 +36,14 @@ jobs:
       - name: Build Angular application
         run: npx ng build --configuration production --base-href /angular-routing-guard/
 
-      - name: Upload website files
-        uses: actions/upload-pages-artifact@v4
+      - name: Verify build output
+        run: |
+          echo "Checking Angular build output..."
+          ls -la dist/angular-routing-gurad/browser
+          test -f dist/angular-routing-gurad/browser/index.html
+
+      - name: Upload Angular website
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist/angular-routing-gurad/browser
 
@@ -49,6 +56,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4

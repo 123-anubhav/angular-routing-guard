@@ -1,5 +1,5 @@
 
-name: Deploy Angular Routing Guard to GitHub Pages
+name: Deploy Angular Routing Guard
 
 on:
   push:
@@ -31,18 +31,17 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Build Angular application
         run: npx ng build --configuration production --base-href /angular-routing-guard/
 
-      - name: Verify build output
+      - name: Verify Angular output
         run: |
-          echo "Checking Angular build output..."
           ls -la dist/angular-routing-gurad/browser
           test -f dist/angular-routing-gurad/browser/index.html
 
-      - name: Upload Angular website
+      - name: Upload website artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/angular-routing-gurad/browser
@@ -56,6 +55,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Deploy website
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
